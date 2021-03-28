@@ -1,0 +1,60 @@
+/* #1111, #1121 {
+	border-right: 2px solid whitesmoke;
+	border-bottom: 2px solid whitesmoke;
+}
+
+#1112, #1122 {
+	border-bottom: 2px solid whitesmoke;
+}
+
+#1113, #1123 {
+	border-left: 2px solid whitesmoke;
+	border-bottom: 2px solid whitesmoke;
+}
+
+#1131 {
+	border-right: 2px solid whitesmoke;
+}
+
+#1133 {
+	border-left: 2px solid whitesmoke;
+} */
+
+.row {
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+}
+
+.box {
+	width: 30px;
+	height: 30px;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 20px;
+	font-weight: bold;
+	border: none;
+	color: whitesmoke;
+}
+  
+.box:hover {
+	cursor: pointer;
+	color: #424242;
+	background: whitesmoke;
+}
+
+.win1 {
+	background-color: rgba(255, 235, 59, 0.432);
+}
+
+.win2 {
+	background-color: rgb(192,192,192);
+	color: #424242;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/board.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"
+        integrity="sha512-tXH7Av8en7+/hg0XwBppaCDPmpJhUXbZ+j7lNC4y+ZQpmCZQcgQN6RjkM7Irj1MUW7bZengfuTOqR4RzCC4bnA=="
+        crossorigin="anonymous"></script>
+    <script src="/static/js/board.js"></script>
+    <script src="/static/js/game.js"></script>
+    <title>Extended Tic Tac Toe</title>
+    <style>
+        .navbar-brand:hover,
+        .nav-link:hover {
+            color: whitesmoke;
+        }
+
+        input[type="text"]::placeholder {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="main-bg">
+    {% extends 'template.html' %}
+    {% block content %}
+    <nav class="navbar navbar-expand-sm">
+        <div class="container">
+            <a class="nav-link text-whitesmoke" href="/">{{ data.game_id }}</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="#">{{ data.name }}</a></li>
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="#">Contacts</a></li>
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav><br>
+    <div class="container text-center mx-auto" style="width: 55%;">
+        <h1 class="text-whitesmoke"><span>Tic Tac Toe</span></h1>
+        <h3 class="text-whitesmoke" name="turn"></h3><br>
+
+        {% for row in range(3) %}
+        <div class="row" style="display: flex;">
+            {% for col in range(3) %}
+            <div class="col-4" id="{{ (row + 1) }}{{ (col + 1) }}">
+                {% for game_row in range(3) %}
+
+                {% if row == 0 or row == 1 %}
+                <div class="row">
+                    {% for game_col in range(3) %}
+                    <div class="col-4 box" id="{{ (row + 1) }}{{ (col + 1) }}{{ (game_row + 1) }}{{ (game_col + 1) }}"
+                        onclick="clickEventHandler(this)">
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="row">
+                    {% for game_col in range(3) %}
+                    <div class="col-4 box" id="{{ (row + 1) }}{{ (col + 1) }}{{ (game_row + 1) }}{{ (game_col + 1) }}"
+                        onclick="clickEventHandler(this)">
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div><br>
+        {% endfor %}
+        <br><br>
+        <button class="btn btn-rounded" id="replay" onclick="replay()">Play Again</button>
+    </div>
+    <script>
+        for (var i = 1; i <= 3; i++) {
+            for (var j = 1; j <= 3; j++) {
+                var box1 = document.getElementById(i.toString() + j.toString() + "11"),
+                    box2 = document.getElementById(i.toString() + j.toString() + "12"),
+                    box3 = document.getElementById(i.toString() + j.toString() + "13"),
+                    box4 = document.getElementById(i.toString() + j.toString() + "21"),
+                    box5 = document.getElementById(i.toString() + j.toString() + "22"),
+                    box6 = document.getElementById(i.toString() + j.toString() + "23"),
+                    box7 = document.getElementById(i.toString() + j.toString() + "31"),
+                    box8 = document.getElementById(i.toString() + j.toString() + "32"),
+                    box9 = document.getElementById(i.toString() + j.toString() + "33");
+                box1.style.borderBottom = "2px solid whitesmoke";
+                box1.style.borderRight = "2px solid whitesmoke";
+                box2.style.borderBottom = "2px solid whitesmoke";
+                box3.style.borderBottom = "2px solid whitesmoke";
+                box3.style.borderLeft = "2px solid whitesmoke";
+                box4.style.borderBottom = "2px solid whitesmoke";
+                box4.style.borderRight = "2px solid whitesmoke";
+                box5.style.borderBottom = "2px solid whitesmoke";
+                box6.style.borderBottom = "2px solid whitesmoke";
+                box6.style.borderLeft = "2px solid whitesmoke";
+                box7.style.borderRight = "2px solid whitesmoke";
+                box9.style.borderLeft = "2px solid whitesmoke";
+            }
+        }
+    </script>
+    {% endblock content %}
+</body>
+
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js"
+        integrity="sha512-tXH7Av8en7+/hg0XwBppaCDPmpJhUXbZ+j7lNC4y+ZQpmCZQcgQN6RjkM7Irj1MUW7bZengfuTOqR4RzCC4bnA=="
+        crossorigin="anonymous"></script>
+    <script src="/static/js/board.js"></script>
+    <title>Dashboard</title>
+    <style>
+        .navbar-brand:hover,
+        .nav-link:hover {
+            color: whitesmoke;
+        }
+
+        input[type="text"]::placeholder {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="main-bg">
+    {% extends 'template.html' %}
+
+    {% block content %}
+    <nav class="navbar navbar-expand-sm">
+        <div class="container">
+            <a class="navbar-brand text-whitesmoke" style="font-size: 26px;" href="/">Extended Tic-Tac-Toe</a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="#">{{ data.name }}</a></li>
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="#">About</a></li>
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="#">Contacts</a></li>
+                <li class="nav-item"><a class="nav-link text-whitesmoke" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br><br>
+    <div class="container">
+        <div class="row" style="height: 100%;">
+            <div class="col-4">
+                <div class="row">
+                    <div class="card bg-transparent" style="border: none; width: 100%;">
+                        <h3 class="card-title text-center text-whitesmoke">Create Game</h3>
+                        <div class="card-body text-center">
+                            <form action="/create_game" method="post">
+                                <div class="form-check-inline text-whitesmoke">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="game_type"
+                                            value="public">Public
+                                    </label>
+                                </div>
+                                <div class="form-check-inline text-whitesmoke">
+                                    <label class="form-check-label">
+                                        <input type="radio" class="form-check-input" name="game_type"
+                                            value="private">Private
+                                    </label>
+                                </div><br><br>
+                                <button type="submit" class="form-button button-m margin-b">Create Game</button>
+                            </form>
+                        </div>
+                    </div>
+                </div><br><br><br>
+                <div class="row">
+                    <div class="card bg-transparent" style="border: none; width: 100%;">
+                        <h3 class="card-title text-center text-whitesmoke">Join Game</h3>
+                        <div class="card-body text-center">
+                            <form action="/join_game" method="post" id="join_game">
+                                <div class="form-check-inline">
+                                    <input type="text" class="form-check-input" name="game_id" placeholder="Game Code">
+                                </div>
+                                <br><br>
+                                <button onclick="joinGameHandler(this)" class="form-button button-m margin-b">Join
+                                    Game</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-8">
+                <h3 class="card-title text-center text-whitesmoke">Public Games</h3>
+                <div class="card scroll bg-transparent" style="border: none;">
+                    {% for game in data.public_games %}
+                    <div class="card bg-transparent text-whitesmoke" , style="border: none;">
+                        <div class="card-body" style="display: flex;">
+                            <div>
+                                <h6>{{ game.player1_name }}</h6>
+                                <p>{{ game._id }}</p>
+                            </div>
+                            <form action="/join_game" name="{{ game._id }}" method="post" class="ml-auto join_game">
+                                <input type="hidden" name="game_id" value="{{ game._id }}">
+                                <button onclick="publicGameHandler(this)" class="form-button button-s margin-b ml-auto"
+                                    id="{{ game._id }}">Join Game</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+        {% endblock content %}
+</body>
+
+</html>
