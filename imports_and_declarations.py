@@ -11,7 +11,7 @@ PAGE_NOT_FOUND_FILE = "404_not_found.html"
 USERS = dict()
 
 client = pymongo.MongoClient(
-    "mongodb+srv://admin:admin@cluster0.8f6vm.mongodb.net/ETTT?retryWrites=true&w=majority"
+    "mongodb+srv://<username>:<password>@cluster0.8f6vm.mongodb.net/ETTT?retryWrites=true&w=majority"
 )
 db = client.ETTT
 player = db.Player
